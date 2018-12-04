@@ -37,7 +37,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 
         <phantomjs.version>2.1.1</phantomjs.version>
 
-        <mongo.database>photosite</mongo.database>
+        <mongo.database>microservice</mongo.database>
         <mongo.host>localhost</mongo.host>
         <mongo.port>27017</mongo.port>
         
