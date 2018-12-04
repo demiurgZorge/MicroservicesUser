@@ -7,8 +7,8 @@ import com.microservices.user.db.models.User;
 
 @Component
 public class UserDao extends DAOTemplate<Long, User> {
-
-	public UserDao() {
+    
+    public UserDao() {
         super(User.class, "id");
     }
 }
