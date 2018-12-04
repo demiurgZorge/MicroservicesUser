@@ -49,7 +49,7 @@ public class UserController {
 	}
 	
 	/**
-	 * ##### Запрос для test GET http://{{host}}/auth/user/get/{userId}
+	 * ##### Запрос для test GET http://{{host}}/auth/user/create/{userId}
 	 * 
 	 * @return String
 	 */
