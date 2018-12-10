@@ -35,8 +35,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
         <hibernate.format_sql>false</hibernate.format_sql>
         <hibernate.hbm2ddl.auto>update</hibernate.hbm2ddl.auto>
 
-        <phantomjs.version>2.1.1</phantomjs.version>
-
         <mongo.database>microservice</mongo.database>
         <mongo.host>localhost</mongo.host>
         <mongo.port>27017</mongo.port>
@@ -196,7 +194,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 
             </dependencies>
 
-    
+    <profiles>
+        
+        <profile>
+            <id>microservice</id>
+        </profile>
+        </profiles>
     
  	<build>
  	<finalName>auth</finalName>

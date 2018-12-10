@@ -18,8 +18,9 @@ public class UserLogic {
     private static final Logger logger = LoggerFactory.getLogger(UserLogic.class);
     
     enum Error implements ErrorCodeEnum {
-        USER_NAME_IN_CREATE_DTO_IS_NULL("USER_NAME_IN_CREATE_DTO_IS_NULL"), CREATE_DTO_IS_NULL(
-                "CREATE_DTO_IS_NULL"), USER_WITH_ID_NOT_FOUND("USER_WITH_ID_NOT_FOUND");
+        USER_NAME_IN_CREATE_DTO_IS_NULL("USER_NAME_IN_CREATE_DTO_IS_NULL"), 
+        CREATE_DTO_IS_NULL("CREATE_DTO_IS_NULL"), 
+        USER_WITH_ID_NOT_FOUND("USER_WITH_ID_NOT_FOUND");
         
         private final String text;
         

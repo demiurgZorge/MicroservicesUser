@@ -44,12 +44,12 @@ public class UserController {
      */
     @RequestMapping(value = "get/{userId}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public UserDto getByid(@PathVariable("userId") Long userId) throws Exception {
+    public UserDto getById(@PathVariable("userId") Long userId) throws Exception {
         return userLogic.getById(userId);
     }
     
     /**
-     * ##### Запрос для test GET http://{{host}}/auth/user/create
+     * ##### Запрос для создания пользователя POST http://{{host}}/auth/user/create
      * 
      * @return String
      */
