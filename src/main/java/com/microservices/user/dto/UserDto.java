@@ -13,7 +13,7 @@ public class UserDto {
     public static UserDto create(User user) {
         UserDto dto = new UserDto();
         dto.id = user.getId();
-        dto.name = user.getName() + "updateTest";
+        dto.name = user.getName();
         return dto;
     }
 }
