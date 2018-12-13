@@ -8,9 +8,9 @@ import com.microservices.user.db.models.Sugar;
 
 public class SugarDto {
     public Long   id;
-    Float level;
-    Date date;
-    UserDto userDto;
+    public Float level;
+    public Date date;
+    public UserDto userDto;
     
     public SugarDto() {
         super();
