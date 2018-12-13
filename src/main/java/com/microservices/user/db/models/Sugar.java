@@ -37,8 +37,8 @@ public class Sugar {
     
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user", nullable = false)
-    protected User user;
+    @JoinColumn(name = "patient", nullable = false)
+    protected User patient;
     
     public Sugar() {
         super();
@@ -47,7 +47,7 @@ public class Sugar {
     public Sugar(Float sugarLevel, User user) {
         this();
         this.level = sugarLevel;
-        this.user = user;
+        this.patient = user;
     }
 
     public Long getId() {
@@ -74,11 +74,11 @@ public class Sugar {
         this.datetime = datetime;
     }
 
-    public User getUser() {
-        return user;
+    public User getPatient() {
+        return patient;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setPatient(User user) {
+        this.patient = user;
     }
 }
