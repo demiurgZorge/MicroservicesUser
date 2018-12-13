@@ -45,7 +45,7 @@ public class UserController {
     @RequestMapping(value = "get/{userId}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public UserDto getById(@PathVariable("userId") Long userId) throws Exception {
-        return userLogic.getById(userId);
+        return userLogic.getDtoById(userId);
     }
     
     /**

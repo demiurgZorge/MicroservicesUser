@@ -12,6 +12,7 @@ import com.microservices.user.core.exceptions.BaseException;
 import com.microservices.user.core.exceptions.ErrorCodeEnum;
 import com.microservices.user.dao.SugarDao;
 import com.microservices.user.db.models.Sugar;
+import com.microservices.user.db.models.User;
 import com.microservices.user.dto.SugarDto;
 
 
@@ -70,7 +71,8 @@ public class SugarLogic {
         if (sugarLevel <= 0.0 || sugarLevel > 100.0) {
             throw BaseException.create(logger, Error.SUGAR_OUT_OF_RANGE);
         }
-        Sugar sugar = new Sugar(sugarLevel);
+        User user = userLogic.getById(1L);
+        Sugar sugar = new Sugar(sugarLevel, user);
         sugarDao.add(sugar);
         return SugarDto.create(sugar);
     }

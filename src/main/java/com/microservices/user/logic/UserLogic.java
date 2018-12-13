@@ -46,12 +46,16 @@ public class UserLogic {
         super();
     }
     
-    public UserDto getById(Long userId) {
+    public User getById(Long userId) {
         User user = userDao.getById(userId);
         if (user == null) {
             throw BaseException.create(logger, Error.USER_WITH_ID_NOT_FOUND);
         }
-        return UserDto.create(user);
+        return user;
+    }
+    
+    public UserDto getDtoById(Long userId) {
+        return UserDto.create(getById(userId));
     }
     
     public UserDto create(CreateUserDto userCreateDto) {

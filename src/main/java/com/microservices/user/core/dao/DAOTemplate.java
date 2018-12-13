@@ -194,9 +194,9 @@ public class DAOTemplate<K extends Serializable, T> {
         return query(criteria);
     }
     
-    public T getById(K id) {
+    public T getById(long i) {
         DetachedCriteria cr = createQuery();
-        cr.add(Restrictions.idEq(id));
+        cr.add(Restrictions.idEq(i));
         cr.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         return queryFirst(cr);
     }
