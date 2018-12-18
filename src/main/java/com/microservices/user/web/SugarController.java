@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.microservices.user.core.apiresult.ApiErrorResult;
 import com.microservices.user.core.apiresult.ApiListResult;
 import com.microservices.user.core.apiresult.ApiResult;
+import com.microservices.user.core.apiresult.ApiSuccessResult;
 import com.microservices.user.core.dao.QueryState;
 import com.microservices.user.core.dao.exceptions.BaseException;
 import com.microservices.user.dto.SugarCreateDto;
@@ -36,8 +37,8 @@ public class SugarController {
      */
     @RequestMapping(value = "/create/{userId}", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public SugarDto create(@RequestBody(required = true) SugarCreateDto sugarCreateDto, @PathVariable("userId") Long userId) throws Exception {
-        return sugarLogic.create(sugarCreateDto.level, userId);
+    public ApiSuccessResult<SugarDto> create(@RequestBody(required = true) SugarCreateDto sugarCreateDto, @PathVariable("userId") Long userId) throws Exception {
+        return ApiResult.success(sugarLogic.create(sugarCreateDto.level, userId));
     }
     
     /**
@@ -47,8 +48,8 @@ public class SugarController {
      */
     @RequestMapping(value = "/update/{userId}", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public SugarDto update(@RequestBody(required = true) SugarUpdateDto sugarDto, @PathVariable("userId") Long userId) throws Exception {
-        return sugarLogic.update(sugarDto, userId);
+    public ApiSuccessResult<SugarDto> update(@RequestBody(required = true) SugarUpdateDto sugarDto, @PathVariable("userId") Long userId) throws Exception {
+        return ApiResult.success(sugarLogic.update(sugarDto, userId));
     }
     
     /**
@@ -58,12 +59,12 @@ public class SugarController {
      */
     @RequestMapping(value = "/get/{sugarId}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public SugarDto getById(@PathVariable("sugarId") Long sugarId) throws Exception {
-        return sugarLogic.getById(sugarId);
+    public ApiSuccessResult<SugarDto> getById(@PathVariable("sugarId") Long sugarId) throws Exception {
+        return ApiResult.success(sugarLogic.getById(sugarId));
     }
     
     /**
-     * ##### Запрос для получения списка сахара по двум датам GET http://{{host}}/auth/sugar/getrange/{userId}
+     * ##### Запрос для получения списка сахара по двум датам POST http://{{host}}/auth/sugar/getrange/{userId}
      * 
      * @return String
      */

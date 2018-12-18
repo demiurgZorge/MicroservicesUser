@@ -18,13 +18,15 @@ import com.microservices.user.db.models.User;
 import com.microservices.user.dto.SugarDto;
 import com.microservices.user.dto.SugarUpdateDto;
 
+
 @Component
 public class SugarLogic {
     private static final Logger logger = LoggerFactory.getLogger(SugarLogic.class);
-    
     enum Error implements ErrorCodeEnum {
-        SUGAR_OUT_OF_RANGE("SUGAR_EXIDE_RANGE"), SUGAR_IS_NULL("SUGAR_IS_NULL"), UPDATE_DTO_IS_NULL(
-                "UPDATE_DTO_IS_NULL"), SUGAR_WITH_ID_NOT_FOUND("SUGAR_WITH_ID_NOT_FOUND");
+        SUGAR_OUT_OF_RANGE("SUGAR_EXIDE_RANGE"),
+        SUGAR_IS_NULL("SUGAR_IS_NULL"),
+        UPDATE_DTO_IS_NULL("UPDATE_DTO_IS_NULL"),
+        SUGAR_WITH_ID_NOT_FOUND("SUGAR_WITH_ID_NOT_FOUND");
         
         private final String text;
         
@@ -42,7 +44,6 @@ public class SugarLogic {
             return text;
         }
     }
-    
     @Autowired
     UserLogic userLogic;
     
@@ -74,16 +75,16 @@ public class SugarLogic {
             
         }
         if (updateDto.date != null) {
-            sugar.setDatetime(updateDto.date);
+            sugar.setDatetime(updateDto.date);            
         }
         sugarDao.update(sugar);
         return SugarDto.create(sugar);
     }
     
-    public List<SugarDto> listForUser(Long userId, QueryState query) {
+    public List<SugarDto> listForUser(Long userId, QueryState query){
         SugarQuerySpecification spec = new SugarQuerySpecification(query);
         spec.setFilterValue(SugarQuerySpecification.Filters.patientId, userId);
-        List<Sugar> list = sugarDao.query(spec);
+        List<Sugar> list = sugarDao.query(spec);        
         return SugarDto.list(list);
     }
     
@@ -100,12 +101,11 @@ public class SugarLogic {
         sugarDao.add(sugar);
         return SugarDto.create(sugar);
     }
-    
     public QueryMetaInformation getRecordCount(Long userId, QueryState queryState) {
         SugarQuerySpecification spec = new SugarQuerySpecification(queryState);
         spec.setFilterValue(SugarQuerySpecification.Filters.patientId, userId);
         long count = sugarDao.getRecordCount(spec);
         return new QueryMetaInformation(queryState, count);
     }
-    
+
 }

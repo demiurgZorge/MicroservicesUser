@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.microservices.user.core.apiresult.ApiErrorResult;
 import com.microservices.user.core.apiresult.ApiResult;
+import com.microservices.user.core.apiresult.ApiSuccessResult;
 import com.microservices.user.core.dao.exceptions.BaseException;
 import com.microservices.user.dto.CreateUserDto;
 import com.microservices.user.dto.UserDto;
@@ -40,8 +41,8 @@ public class UserController {
      */
     @RequestMapping(value = "get/{userId}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public UserDto getById(@PathVariable("userId") Long userId) throws Exception {
-        return userLogic.getDtoById(userId);
+    public ApiSuccessResult<UserDto> getById(@PathVariable("userId") Long userId) throws Exception {
+        return ApiResult.success(userLogic.getDtoById(userId));
     }
     
     /**
@@ -51,8 +52,8 @@ public class UserController {
      */
     @RequestMapping(value = "create", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public UserDto getByid(@RequestBody(required = true) CreateUserDto userCreateDto) throws Exception {
-        return userLogic.create(userCreateDto);
+    public ApiSuccessResult<UserDto> getByid(@RequestBody(required = true) CreateUserDto userCreateDto) throws Exception {
+        return ApiResult.success(userLogic.create(userCreateDto));
     }
     
     @ExceptionHandler(BaseException.class)
