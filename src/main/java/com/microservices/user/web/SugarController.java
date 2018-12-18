@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.microservices.user.core.apiresult.ApiListResult;
+import com.microservices.user.core.apiresult.ApiResult;
 import com.microservices.user.core.dao.QueryState;
 import com.microservices.user.dto.SugarCreateDto;
 import com.microservices.user.dto.SugarDto;
@@ -61,8 +63,8 @@ public class SugarController {
      */
     @RequestMapping(value = "/getrange/{userId}", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public List<SugarDto> list(@PathVariable("userId") Long userId,
+    public ApiListResult<List<SugarDto>> list(@PathVariable("userId") Long userId,
                                          @RequestBody(required = false) QueryState query) throws Exception {
-        return sugarLogic.listForUser(userId, query);
+        return ApiResult.list(sugarLogic.listForUser(userId, query), sugarLogic.getRecordCount(userId, query)) ;
     }
 }

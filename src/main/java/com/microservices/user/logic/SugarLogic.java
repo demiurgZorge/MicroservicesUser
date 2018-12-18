@@ -1,6 +1,5 @@
 package com.microservices.user.logic;
 
-import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -8,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.microservices.user.core.dao.QueryMetaInformation;
 import com.microservices.user.core.dao.QueryState;
 import com.microservices.user.core.dao.exceptions.BaseException;
 import com.microservices.user.core.dao.exceptions.ErrorCodeEnum;
@@ -90,4 +90,11 @@ public class SugarLogic {
         sugarDao.add(sugar);
         return SugarDto.create(sugar);
     }
+    public QueryMetaInformation getRecordCount(Long userId, QueryState queryState) {
+        SugarQuerySpecification spec = new SugarQuerySpecification(queryState);
+        spec.setFilterValue(SugarQuerySpecification.Filters.patientId, userId);
+        long count = sugarDao.getRecordCount(spec);
+        return new QueryMetaInformation(queryState, count);
+    }
+
 }
