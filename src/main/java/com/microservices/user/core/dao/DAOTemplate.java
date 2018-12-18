@@ -14,10 +14,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import com.microservices.user.core.exceptions.BaseException;
-import com.microservices.user.core.exceptions.DaoException;
+import com.microservices.user.core.dao.exceptions.BaseException;
+import com.microservices.user.core.dao.exceptions.DaoException;
 
 public class DAOTemplate<K extends Serializable, T> {
     

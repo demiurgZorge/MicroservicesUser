@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.microservices.user.core.exceptions.BaseException;
-import com.microservices.user.core.exceptions.ErrorCodeEnum;
+import com.microservices.user.core.dao.exceptions.BaseException;
+import com.microservices.user.core.dao.exceptions.ErrorCodeEnum;
 import com.microservices.user.dao.SugarDao;
 import com.microservices.user.db.models.Sugar;
 import com.microservices.user.db.models.User;
