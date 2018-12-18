@@ -70,10 +70,10 @@ public class SugarLogic {
         return SugarDto.create(sugar);
     }
     
-    public List<SugarDto> lsitForUser(Long userId, QueryState query){
+    public List<SugarDto> listForUser(Long userId, QueryState query){
         SugarQuerySpecification spec = new SugarQuerySpecification(query);
         spec.setFilterValue(SugarQuerySpecification.Filters.patientId, userId);
-        List<Sugar> list = sugarDao.queryIdList(spec);        
+        List<Sugar> list = sugarDao.query(spec);        
         return SugarDto.list(list);
     }
     

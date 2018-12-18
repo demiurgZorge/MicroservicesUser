@@ -63,6 +63,6 @@ public class SugarController {
     @ResponseBody
     public List<SugarDto> list(@PathVariable("userId") Long userId,
                                          @RequestBody(required = false) QueryState query) throws Exception {
-        return sugarLogic.lsitForUser(userId, query);
+        return sugarLogic.listForUser(userId, query);
     }
 }
