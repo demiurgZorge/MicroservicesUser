@@ -1,13 +1,19 @@
 package com.microservices.user.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.microservices.user.core.apiresult.ApiErrorResult;
+import com.microservices.user.core.apiresult.ApiResult;
+import com.microservices.user.core.dao.exceptions.BaseException;
 import com.microservices.user.dto.CreateUserDto;
 import com.microservices.user.dto.UserDto;
 import com.microservices.user.logic.UserLogic;
@@ -47,5 +53,11 @@ public class UserController {
     @ResponseBody
     public UserDto getByid(@RequestBody(required = true) CreateUserDto userCreateDto) throws Exception {
         return userLogic.create(userCreateDto);
+    }
+    
+    @ExceptionHandler(BaseException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiErrorResult handleBadRequest(BaseException exception) {
+        return ApiResult.fail(exception);
     }
 }
