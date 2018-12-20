@@ -122,7 +122,11 @@ public class SugarLogic {
         spec.setFilterValue(SugarQuerySpecification.Filters.patientId, userId);
         spec.setFilterValue(SugarQuerySpecification.Filters.idList, sugarIdList);
         List<Sugar> list = sugarDao.query(spec);
+        
         List<Long> userSugerIdList = Sugar.extractIdList(list);
+        if(userSugerIdList.isEmpty()) {
+            return true;
+        }
         sugarDao.deleteByIdList(userSugerIdList);
         return true;
     }
