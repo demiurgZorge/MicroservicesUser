@@ -117,8 +117,13 @@ public class SugarLogic {
         return new QueryMetaInformation(queryState, count);
     }
 
-    public Boolean deleteByListId(List<Long> sugarIdList) {
-        sugarDao.deleteByIdList(sugarIdList);
+    public Boolean deleteByListId(List<Long> sugarIdList, Long userId) {
+        SugarQuerySpecification spec = new SugarQuerySpecification(null);
+        spec.setFilterValue(SugarQuerySpecification.Filters.patientId, userId);
+        spec.setFilterValue(SugarQuerySpecification.Filters.idList, sugarIdList);
+        List<Sugar> list = sugarDao.query(spec);
+        List<Long> userSugerIdList = Sugar.extractIdList(list);
+        sugarDao.deleteByIdList(userSugerIdList);
         return true;
     }
 

@@ -12,7 +12,7 @@ import com.microservices.user.db.models.Sugar;
 
 public class SugarQuerySpecification extends QuerySpecification {
     public static enum Filters implements FilterEnum {
-        patientId, maxDatetime, minDatetime, maxLevel, minLevel
+        idList, patientId, maxDatetime, minDatetime, maxLevel, minLevel
     }
     
     public enum SearchSortTypes implements SortEnum {
@@ -23,7 +23,8 @@ public class SugarQuerySpecification extends QuerySpecification {
         super();
         defineAlias("patient", "patient", JoinType.LEFT);
         useRootDistinct = true;
-        defineFilter(getBypatientIdFilter());
+        defineFilter(getByIdListFilter());
+        defineFilter(getByPatientIdFilter());
         
         defineFilter(getMaxLevelFilter());
         defineFilter(getMinLevelFilter());
@@ -34,7 +35,11 @@ public class SugarQuerySpecification extends QuerySpecification {
         initFromState(state);
     }
     
-    private static HibernateCriteriaQueryFilter getBypatientIdFilter() {
+    private static HibernateCriteriaQueryFilter getByIdListFilter() {
+        return HibernateCriteriaQueryFilter.in(Filters.idList, "id", FieldType.LONG);
+    }
+    
+    private static HibernateCriteriaQueryFilter getByPatientIdFilter() {
         return HibernateCriteriaQueryFilter.eq(Filters.patientId, "patient.id", FieldType.LONG);
     }
     

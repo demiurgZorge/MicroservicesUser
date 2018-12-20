@@ -1,6 +1,9 @@
 package com.microservices.user.db.models;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.persistence.Access;
 import javax.persistence.Column;
@@ -80,5 +83,9 @@ public class Sugar {
 
     public void setPatient(User user) {
         this.patient = user;
+    }
+
+    public static List<Long> extractIdList(List<Sugar> list) {
+        return list.stream().map(sugar -> sugar.id).collect(Collectors.toList());
     }
 }

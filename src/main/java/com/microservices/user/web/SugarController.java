@@ -55,14 +55,15 @@ public class SugarController {
     }
     
     /**
-     * ##### Запрос для удаления уровня сахара POST http://{{host}}/auth/sugar/delete
+     * ##### Запрос для удаления уровня сахара POST http://{{host}}/auth/sugar/delete/{userId}
      * 
      * @return String
      */
-    @RequestMapping(value = "/delete", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/delete/{userId}", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public ApiSuccessResult<Boolean> deleteByListId(@RequestBody(required = true) List<Long> sugarIdList) throws Exception {
-        return ApiResult.success(sugarLogic.deleteByListId(sugarIdList));
+    public ApiSuccessResult<Boolean> deleteByListId(@RequestBody(required = true) List<Long> sugarIdList,
+                                                    @PathVariable("userId") Long userId) throws Exception {
+        return ApiResult.success(sugarLogic.deleteByListId(sugarIdList, userId));
     }
 
     
