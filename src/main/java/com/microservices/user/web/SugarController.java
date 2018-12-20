@@ -37,20 +37,34 @@ public class SugarController {
      */
     @RequestMapping(value = "/create/{userId}", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public ApiSuccessResult<SugarDto> create(@RequestBody(required = true) SugarUpdateDto sugarCreateDto, @PathVariable("userId") Long userId) throws Exception {
+    public ApiSuccessResult<SugarDto> create(@RequestBody(required = true) SugarUpdateDto sugarCreateDto, 
+                                             @PathVariable("userId") Long userId) throws Exception {
         return ApiResult.success(sugarLogic.create(sugarCreateDto, userId));
     }
     
     /**
-     * ##### Запрос для обновления уровня сахара POST http://{{host}}/auth/sugar/update/{userId}
+     * ##### Запрос для обновления уровня сахара POST http://{{host}}/auth/sugar/update/{sugarId}
      * 
      * @return String
      */
-    @RequestMapping(value = "/update/{userId}", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/update/{sugarId}", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public ApiSuccessResult<SugarDto> update(@RequestBody(required = true) SugarUpdateDto sugarDto, @PathVariable("userId") Long userId) throws Exception {
-        return ApiResult.success(sugarLogic.update(sugarDto, userId));
+    public ApiSuccessResult<SugarDto> update(@RequestBody(required = true) SugarUpdateDto sugarDto, 
+                                             @PathVariable("sugarId") Long sugarId) throws Exception {
+        return ApiResult.success(sugarLogic.update(sugarDto, sugarId));
     }
+    
+    /**
+     * ##### Запрос для удаления уровня сахара POST http://{{host}}/auth/sugar/delete
+     * 
+     * @return String
+     */
+    @RequestMapping(value = "/delete", method = RequestMethod.POST, produces = "application/json")
+    @ResponseBody
+    public ApiSuccessResult<Boolean> deleteByListId(@RequestBody(required = true) List<Long> sugarIdList) throws Exception {
+        return ApiResult.success(sugarLogic.deleteByListId(sugarIdList));
+    }
+
     
     /**
      * ##### Запрос для получения уровня сахара GET http://{{host}}/auth/sugar/get/{sugarId}

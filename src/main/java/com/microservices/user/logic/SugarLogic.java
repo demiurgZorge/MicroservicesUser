@@ -117,4 +117,9 @@ public class SugarLogic {
         return new QueryMetaInformation(queryState, count);
     }
 
+    public Boolean deleteByListId(List<Long> sugarIdList) {
+        sugarDao.deleteByIdList(sugarIdList);
+        return true;
+    }
+
 }

@@ -493,6 +493,22 @@ public class DAOTemplate<K extends Serializable, T> {
 		closeSession(session);
 	}
 	
+	public void deleteByIdList(List<K> list) {
+        Session session = null;
+        try {
+            session = tryOpenSession();
+            String hql = String.format("delete from %s where id in (:list)", typeParameterClass.getCanonicalName());
+            Query query = session.createQuery(hql);
+            query.setParameterList("list", list);
+            query.executeUpdate();
+        } catch (Exception ex) {
+            closeSession(session);
+            throw DaoException.create(ex);
+        } 
+        closeSession(session);
+    }
+	
+	
 	protected void buildCriteria(
 			DetachedCriteria cr, List<Criterion> searchList, List<Criterion> filters) {
 		criteriaBuilder.buildCriteria(cr, searchList, filters);
