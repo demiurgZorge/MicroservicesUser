@@ -103,7 +103,7 @@ public class SugarLogic {
         User user = userLogic.getById(userId);
         Sugar sugar = new Sugar(dto.level, user);
         Date date = dto.date;
-        if(date != null) {
+        if(date == null) {
             date = new Date();
         }
         sugar.setDatetime(date);
