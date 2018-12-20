@@ -1,5 +1,6 @@
 package com.microservices.user.logic;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -101,7 +102,11 @@ public class SugarLogic {
         }
         User user = userLogic.getById(userId);
         Sugar sugar = new Sugar(dto.level, user);
-        sugar.setDatetime(dto.date);
+        Date date = dto.date;
+        if(date != null) {
+            date = new Date();
+        }
+        sugar.setDatetime(date);
         sugarDao.add(sugar);
         return SugarDto.create(sugar);
     }
