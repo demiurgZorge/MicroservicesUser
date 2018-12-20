@@ -37,8 +37,8 @@ public class SugarController {
      */
     @RequestMapping(value = "/create/{userId}", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public ApiSuccessResult<SugarDto> create(@RequestBody(required = true) SugarCreateDto sugarCreateDto, @PathVariable("userId") Long userId) throws Exception {
-        return ApiResult.success(sugarLogic.create(sugarCreateDto.level, userId));
+    public ApiSuccessResult<SugarDto> create(@RequestBody(required = true) SugarUpdateDto sugarCreateDto, @PathVariable("userId") Long userId) throws Exception {
+        return ApiResult.success(sugarLogic.create(sugarCreateDto, userId));
     }
     
     /**

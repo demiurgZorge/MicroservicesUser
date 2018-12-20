@@ -88,16 +88,20 @@ public class SugarLogic {
         return SugarDto.list(list);
     }
     
-    public SugarDto create(Float sugarLevel, Long userId) {
-        if (sugarLevel == null) {
+    public SugarDto create(SugarUpdateDto dto, Long userId) {
+        if (dto == null) {
+            throw BaseException.create(logger, Error.UPDATE_DTO_IS_NULL);
+        }
+        if (dto.level == null) {
             throw BaseException.create(logger, Error.SUGAR_IS_NULL);
         }
         
-        if (sugarLevel <= 0.0 || sugarLevel > 100.0) {
+        if (dto.level <= 0.0 || dto.level > 100.0) {
             throw BaseException.create(logger, Error.SUGAR_OUT_OF_RANGE);
         }
         User user = userLogic.getById(userId);
-        Sugar sugar = new Sugar(sugarLevel, user);
+        Sugar sugar = new Sugar(dto.level, user);
+        sugar.setDatetime(dto.date);
         sugarDao.add(sugar);
         return SugarDto.create(sugar);
     }
