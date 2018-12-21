@@ -16,6 +16,7 @@ import com.microservices.user.dao.SugarDao;
 import com.microservices.user.dao.SugarQuerySpecification;
 import com.microservices.user.db.models.Sugar;
 import com.microservices.user.db.models.User;
+import com.microservices.user.dto.DeleteSugarDto;
 import com.microservices.user.dto.SugarDto;
 import com.microservices.user.dto.SugarUpdateDto;
 
@@ -117,10 +118,13 @@ public class SugarLogic {
         return new QueryMetaInformation(queryState, count);
     }
 
-    public Boolean deleteByListId(List<Long> sugarIdList, Long userId) {
+    public Boolean deleteByListId(DeleteSugarDto dto, Long userId) {
+        if(dto.idList == null) {
+            return true;
+        }
         SugarQuerySpecification spec = new SugarQuerySpecification(null);
         spec.setFilterValue(SugarQuerySpecification.Filters.patientId, userId);
-        spec.setFilterValue(SugarQuerySpecification.Filters.idList, sugarIdList);
+        spec.setFilterValue(SugarQuerySpecification.Filters.idList, dto.idList);
         List<Sugar> list = sugarDao.query(spec);
         
         List<Long> userSugerIdList = Sugar.extractIdList(list);

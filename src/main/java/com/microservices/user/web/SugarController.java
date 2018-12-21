@@ -19,7 +19,7 @@ import com.microservices.user.core.apiresult.ApiResult;
 import com.microservices.user.core.apiresult.ApiSuccessResult;
 import com.microservices.user.core.dao.QueryState;
 import com.microservices.user.core.dao.exceptions.BaseException;
-import com.microservices.user.dto.SugarCreateDto;
+import com.microservices.user.dto.DeleteSugarDto;
 import com.microservices.user.dto.SugarDto;
 import com.microservices.user.dto.SugarUpdateDto;
 import com.microservices.user.logic.SugarLogic;
@@ -61,9 +61,9 @@ public class SugarController {
      */
     @RequestMapping(value = "/delete/{userId}", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public ApiSuccessResult<Boolean> deleteByListId(@RequestBody(required = true) List<Long> sugarIdList,
+    public ApiSuccessResult<Boolean> deleteByListId(@RequestBody(required = true) DeleteSugarDto deleteSugarDto,
                                                     @PathVariable("userId") Long userId) throws Exception {
-        return ApiResult.success(sugarLogic.deleteByListId(sugarIdList, userId));
+        return ApiResult.success(sugarLogic.deleteByListId(deleteSugarDto, userId));
     }
 
     
