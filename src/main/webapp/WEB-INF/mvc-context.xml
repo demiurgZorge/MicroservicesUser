@@ -17,7 +17,11 @@
 <context:component-scan base-package="com.microservices.user.core.dao" /> 
     <context:component-scan base-package="com.microservices.user.db" /> 
     <context:component-scan base-package="com.microservices.user.db.models" />   
-    <context:component-scan base-package="com.microservices.user.logic" />    
+    <context:component-scan base-package="com.microservices.user.logic" />
+    <context:component-scan base-package="com.microservices.user.core.crypto" />
+    <context:component-scan base-package="com.microservices.user.logic.security" />
+    <context:component-scan base-package="com.microservices.user.core.servlet" />
+    <context:component-scan base-package="com.microservices.user.core.session" />
     <context:component-scan base-package="com.microservices.user.dao" />
     <context:component-scan base-package="com.microservices.user.web" />
     

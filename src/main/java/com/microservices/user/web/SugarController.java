@@ -31,15 +31,14 @@ public class SugarController {
     SugarLogic sugarLogic;
     
     /**
-     * ##### Запрос для создания уровня сахара POST http://{{host}}/auth/sugar/create/{userId}
+     * ##### Запрос для создания уровня сахара POST http://{{host}}/auth/sugar/create
      * 
      * @return String
      */
-    @RequestMapping(value = "/create/{userId}", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public ApiSuccessResult<SugarDto> create(@RequestBody(required = true) SugarUpdateDto sugarCreateDto, 
-                                             @PathVariable("userId") Long userId) throws Exception {
-        return ApiResult.success(sugarLogic.create(sugarCreateDto, userId));
+    public ApiSuccessResult<SugarDto> create(@RequestBody(required = true) SugarUpdateDto sugarCreateDto) throws Exception {
+        return ApiResult.success(sugarLogic.create(sugarCreateDto));
     }
     
     /**
@@ -55,15 +54,14 @@ public class SugarController {
     }
     
     /**
-     * ##### Запрос для удаления уровня сахара POST http://{{host}}/auth/sugar/delete/{userId}
+     * ##### Запрос для удаления уровня сахара POST http://{{host}}/auth/sugar/delete
      * 
      * @return String
      */
-    @RequestMapping(value = "/delete/{userId}", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/delete", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public ApiSuccessResult<Boolean> deleteByListId(@RequestBody(required = true) DeleteSugarDto deleteSugarDto,
-                                                    @PathVariable("userId") Long userId) throws Exception {
-        return ApiResult.success(sugarLogic.deleteByListId(deleteSugarDto, userId));
+    public ApiSuccessResult<Boolean> deleteByListId(@RequestBody(required = true) DeleteSugarDto deleteSugarDto) throws Exception {
+        return ApiResult.success(sugarLogic.deleteByListId(deleteSugarDto));
     }
 
     
@@ -79,15 +77,14 @@ public class SugarController {
     }
     
     /**
-     * ##### Запрос для получения списка сахара по двум датам POST http://{{host}}/auth/sugar/getrange/{userId}
+     * ##### Запрос для получения списка сахара по двум датам POST http://{{host}}/auth/sugar/getrange
      * 
      * @return String
      */
-    @RequestMapping(value = "/getrange/{userId}", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/getrange", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public ApiListResult<List<SugarDto>> list(@PathVariable("userId") Long userId,
-                                         @RequestBody(required = false) QueryState query) throws Exception {
-        return ApiResult.list(sugarLogic.listForUser(userId, query), sugarLogic.getRecordCount(userId, query)) ;
+    public ApiListResult<List<SugarDto>> list(@RequestBody(required = false) QueryState query) throws Exception {
+        return ApiResult.list(sugarLogic.listForUser(query), sugarLogic.getRecordCount(query)) ;
     }
     
     @ExceptionHandler(BaseException.class)

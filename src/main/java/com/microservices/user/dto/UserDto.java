@@ -8,6 +8,9 @@ import com.microservices.user.db.models.User;
 public class UserDto {
     public Long   id;
     public String name;
+    public String authToken;
+    public boolean active;
+    public String ip;
     
     public UserDto() {
         super();
@@ -17,6 +20,14 @@ public class UserDto {
         UserDto dto = new UserDto();
         dto.id = user.getId();
         dto.name = user.getName();
+        dto.active = user.getActive();
+        dto.ip = user.getIp();
+        return dto;
+    }
+    
+    public static UserDto createWithToken(User user, String token) {
+        UserDto dto = create(user);
+        dto.authToken = token;
         return dto;
     }
 }

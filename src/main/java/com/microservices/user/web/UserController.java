@@ -1,5 +1,7 @@
 package com.microservices.user.web;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,7 +17,9 @@ import com.microservices.user.core.apiresult.ApiErrorResult;
 import com.microservices.user.core.apiresult.ApiResult;
 import com.microservices.user.core.apiresult.ApiSuccessResult;
 import com.microservices.user.core.dao.exceptions.BaseException;
+import com.microservices.user.core.servlet.HttpHeadersReader;
 import com.microservices.user.dto.CreateUserDto;
+import com.microservices.user.dto.LoginDto;
 import com.microservices.user.dto.UserDto;
 import com.microservices.user.logic.UserLogic;
 
@@ -29,6 +33,9 @@ import com.microservices.user.logic.UserLogic;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+    
+    @Autowired
+    HttpHeadersReader headersReader;
     
     @Autowired
     UserLogic userLogic;
@@ -46,15 +53,18 @@ public class UserController {
     }
     
     /**
-     * ##### Запрос для создания пользователя POST http://{{host}}/auth/user/create
+     * ##### Запрос для создания пользователя 
+     * POST http://{{host}}/auth/user/register
      * 
      * @return String
      */
-    @RequestMapping(value = "create", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "register", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public ApiSuccessResult<UserDto> getByid(@RequestBody(required = true) CreateUserDto userCreateDto) throws Exception {
-        return ApiResult.success(userLogic.create(userCreateDto));
+    public ApiSuccessResult<UserDto> registerUser(HttpServletRequest request,
+                                            @RequestBody(required = true) CreateUserDto userCreateDto) throws Exception {
+        return ApiResult.success(userLogic.registerUser(userCreateDto, headersReader.getHttpHeaders(request)));
     }
+
     
     @ExceptionHandler(BaseException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)

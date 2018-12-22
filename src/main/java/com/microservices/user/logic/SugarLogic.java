@@ -12,6 +12,7 @@ import com.microservices.user.core.dao.QueryMetaInformation;
 import com.microservices.user.core.dao.QueryState;
 import com.microservices.user.core.dao.exceptions.BaseException;
 import com.microservices.user.core.dao.exceptions.ErrorCodeEnum;
+import com.microservices.user.core.session.UserSessionLogic;
 import com.microservices.user.dao.SugarDao;
 import com.microservices.user.dao.SugarQuerySpecification;
 import com.microservices.user.db.models.Sugar;
@@ -28,7 +29,8 @@ public class SugarLogic {
         SUGAR_OUT_OF_RANGE("SUGAR_EXIDE_RANGE"),
         SUGAR_IS_NULL("SUGAR_IS_NULL"),
         UPDATE_DTO_IS_NULL("UPDATE_DTO_IS_NULL"),
-        SUGAR_WITH_ID_NOT_FOUND("SUGAR_WITH_ID_NOT_FOUND");
+        SUGAR_WITH_ID_NOT_FOUND("SUGAR_WITH_ID_NOT_FOUND"), 
+        USER_HAS_NO_RIGHT("USER_HAS_NO_RIGHT");
         
         private final String text;
         
@@ -52,6 +54,9 @@ public class SugarLogic {
     @Autowired
     SugarDao  sugarDao;
     
+    @Autowired
+    UserSessionLogic userSessionLogic;
+    
     public SugarLogic() {
         super();
     }
@@ -61,6 +66,7 @@ public class SugarLogic {
         if (sugar == null) {
             throw BaseException.create(logger, Error.SUGAR_WITH_ID_NOT_FOUND);
         }
+        hasUserRight(sugar.getPatient().getId());
         return SugarDto.create(sugar);
     }
     
@@ -72,6 +78,7 @@ public class SugarLogic {
         if (sugar == null) {
             throw BaseException.create(logger, Error.SUGAR_WITH_ID_NOT_FOUND);
         }
+        hasUserRight(sugar.getPatient().getId());
         if (updateDto.level != null) {
             sugar.setLevel(updateDto.level);
             
@@ -83,14 +90,21 @@ public class SugarLogic {
         return SugarDto.create(sugar);
     }
     
-    public List<SugarDto> listForUser(Long userId, QueryState query){
+    public List<SugarDto> listForUser(QueryState query){
+        Long userId = userSessionLogic.getCurrentUserId();
         SugarQuerySpecification spec = new SugarQuerySpecification(query);
         spec.setFilterValue(SugarQuerySpecification.Filters.patientId, userId);
         List<Sugar> list = sugarDao.query(spec);        
         return SugarDto.list(list);
     }
+
+    private void hasUserRight(Long userId) {
+        if(!userSessionLogic.isUserLogged(userId)) {
+            throw BaseException.create(logger, Error.USER_HAS_NO_RIGHT);
+        }
+    }
     
-    public SugarDto create(SugarUpdateDto dto, Long userId) {
+    public SugarDto create(SugarUpdateDto dto) {
         if (dto == null) {
             throw BaseException.create(logger, Error.UPDATE_DTO_IS_NULL);
         }
@@ -101,7 +115,8 @@ public class SugarLogic {
         if (dto.level <= 0.0 || dto.level > 100.0) {
             throw BaseException.create(logger, Error.SUGAR_OUT_OF_RANGE);
         }
-        User user = userLogic.getById(userId);
+        Long userId = userSessionLogic.getCurrentUserId();
+        User user = userLogic.getById(userId );
         Sugar sugar = new Sugar(dto.level, user);
         Date date = dto.date;
         if(date == null) {
@@ -111,14 +126,16 @@ public class SugarLogic {
         sugarDao.add(sugar);
         return SugarDto.create(sugar);
     }
-    public QueryMetaInformation getRecordCount(Long userId, QueryState queryState) {
+    public QueryMetaInformation getRecordCount(QueryState queryState) {
+        Long userId = userSessionLogic.getCurrentUserId();
         SugarQuerySpecification spec = new SugarQuerySpecification(queryState);
         spec.setFilterValue(SugarQuerySpecification.Filters.patientId, userId);
         long count = sugarDao.getRecordCount(spec);
         return new QueryMetaInformation(queryState, count);
     }
 
-    public Boolean deleteByListId(DeleteSugarDto dto, Long userId) {
+    public Boolean deleteByListId(DeleteSugarDto dto) {
+        Long userId = userSessionLogic.getCurrentUserId();
         if(dto.idList == null) {
             return true;
         }
