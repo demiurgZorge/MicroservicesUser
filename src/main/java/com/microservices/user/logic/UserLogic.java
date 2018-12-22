@@ -192,6 +192,9 @@ public class UserLogic {
 
     public UserDto getLoggedUserDetail() {
         UserSessionDto sessionDto = userSessionLogic.getCurrentUser();
+        if ( sessionDto == null) {
+            return null;
+        }
         User user = userDao.getById(sessionDto.getUserId());        
         return UserDto.createWithToken(user, sessionDto.getAuthToken());
     }
