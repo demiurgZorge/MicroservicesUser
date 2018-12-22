@@ -31,7 +31,8 @@ public class SugarController {
     SugarLogic sugarLogic;
     
     /**
-     * ##### Запрос для создания уровня сахара POST http://{{host}}/auth/sugar/create
+     * ##### Запрос для создания уровня сахара 
+     * POST http://{{host}}/auth/sugar/create
      * 
      * @return String
      */
@@ -42,7 +43,8 @@ public class SugarController {
     }
     
     /**
-     * ##### Запрос для обновления уровня сахара POST http://{{host}}/auth/sugar/update/{sugarId}
+     * ##### Запрос для обновления уровня сахара 
+     * POST http://{{host}}/auth/sugar/update/{sugarId}
      * 
      * @return String
      */
@@ -54,7 +56,8 @@ public class SugarController {
     }
     
     /**
-     * ##### Запрос для удаления уровня сахара POST http://{{host}}/auth/sugar/delete
+     * ##### Запрос для удаления уровня сахара 
+     * POST http://{{host}}/auth/sugar/delete
      * 
      * @return String
      */
@@ -66,7 +69,8 @@ public class SugarController {
 
     
     /**
-     * ##### Запрос для получения уровня сахара GET http://{{host}}/auth/sugar/get/{sugarId}
+     * ##### Запрос для получения уровня сахара 
+     * GET http://{{host}}/auth/sugar/get/{sugarId}
      * 
      * @return String
      */
@@ -77,7 +81,8 @@ public class SugarController {
     }
     
     /**
-     * ##### Запрос для получения списка сахара по двум датам POST http://{{host}}/auth/sugar/getrange
+     * ##### Запрос для получения списка сахара по двум датам 
+     * POST http://{{host}}/auth/sugar/getrange
      * 
      * @return String
      */

@@ -24,6 +24,8 @@ import com.microservices.user.dto.SugarUpdateDto;
 
 @Component
 public class SugarLogic {
+    private static final double MAX_SUGAR_LEVEL = 100.0;
+    private static final double MIN_SUGAR_LEVEL = 0.0;
     private static final Logger logger = LoggerFactory.getLogger(SugarLogic.class);
     enum Error implements ErrorCodeEnum {
         SUGAR_OUT_OF_RANGE("SUGAR_EXIDE_RANGE"),
@@ -80,6 +82,9 @@ public class SugarLogic {
         }
         hasUserRight(sugar.getPatient().getId());
         if (updateDto.level != null) {
+            if (updateDto.level <= MIN_SUGAR_LEVEL || updateDto.level > MAX_SUGAR_LEVEL) {
+                throw BaseException.create(logger, Error.SUGAR_OUT_OF_RANGE);
+            }
             sugar.setLevel(updateDto.level);
             
         }
@@ -112,7 +117,7 @@ public class SugarLogic {
             throw BaseException.create(logger, Error.SUGAR_IS_NULL);
         }
         
-        if (dto.level <= 0.0 || dto.level > 100.0) {
+        if (dto.level <= MIN_SUGAR_LEVEL || dto.level > MAX_SUGAR_LEVEL) {
             throw BaseException.create(logger, Error.SUGAR_OUT_OF_RANGE);
         }
         Long userId = userSessionLogic.getCurrentUserId();
