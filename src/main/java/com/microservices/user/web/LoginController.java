@@ -39,18 +39,19 @@ public class LoginController {
     }
     
     public class TokenDto{
-    public String token;
+        public String token;
+        publib TokenDto(){}
     }
     /**
      * Запрос для авторизации
-     * POST http://{{host}}/auth/security/loginWithToken
+     * POST http://{{host}}/auth/security/token
      * @param request
      * @param tokenDto
      * @return ApiSuccessResult<UserDto>
      */
-    @RequestMapping(value="/loginWithToken", method=RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value="token", method=RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public ApiSuccessResult<UserDto> loginWithToken(HttpServletRequest request, @RequestBody TokenDto tokenDto) {        
+    public ApiSuccessResult<UserDto> loginWithToken(HttpServletRequest request, @RequestBody(required = true) TokenDto tokenDto) {        
         return ApiResult.success(userLogic.loginWithToken(tokenDto.token, headersReader.getHttpHeaders(request)));
     }
     
