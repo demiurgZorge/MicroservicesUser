@@ -73,4 +73,10 @@ public class LoginController {
     public ApiSuccessResult<UserDto> getLoggedUserDetail() {
         return ApiResult.success(userLogic.getLoggedUserDetail());
     }
+    
+    @ExceptionHandler(BaseException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiErrorResult handleBadRequest(BaseException exception) {
+        return ApiResult.fail(exception);
+    }
 }
