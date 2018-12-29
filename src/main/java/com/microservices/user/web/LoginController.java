@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.microservices.user.core.apiresult.ApiResult;
 import com.microservices.user.core.apiresult.ApiSuccessResult;
+import com.microservices.user.core.apiresult.ApiErrorResult;
+import com.microservices.user.core.dao.exceptions.BaseException;
 import com.microservices.user.core.servlet.HttpHeadersReader;
 import com.microservices.user.dto.LoginDto;
 import com.microservices.user.dto.UserDto;
