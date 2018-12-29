@@ -18,6 +18,7 @@ import com.microservices.user.core.dao.exceptions.BaseException;
 import com.microservices.user.core.servlet.HttpHeadersReader;
 import com.microservices.user.dto.LoginDto;
 import com.microservices.user.dto.UserDto;
+import com.microservices.user.dto.TokenDto;
 import com.microservices.user.logic.UserLogic;
 
 @RestController
@@ -41,11 +42,7 @@ public class LoginController {
                                            @RequestBody(required = true) LoginDto loginDto) throws Exception {
         return ApiResult.success(userLogic.login(loginDto, headersReader.getHttpHeaders(request)));
     }
-    
-    public class TokenDto{
-        public String token;
-        public TokenDto(){}
-    }
+
     /**
      * Запрос для авторизации
      * POST http://{{host}}/auth/security/token
@@ -56,9 +53,8 @@ public class LoginController {
     @RequestMapping(value = "/token", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public ApiSuccessResult<UserDto> loginWithToken(HttpServletRequest request, 
-                                                    @RequestBody(required = true) LoginDto tokenDto) throws Exception {        
-        //return ApiResult.success(userLogic.loginWithToken(tokenDto.token, headersReader.getHttpHeaders(request)));
-        return ApiResult.success(new UserDto());
+                                                    @RequestBody(required = true) TokenDto tokenDto) throws Exception {        
+        return ApiResult.success(userLogic.loginWithToken(tokenDto.token, headersReader.getHttpHeaders(request)));
     }
     
     
