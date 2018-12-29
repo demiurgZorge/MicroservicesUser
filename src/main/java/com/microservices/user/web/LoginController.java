@@ -38,7 +38,7 @@ public class LoginController {
         return ApiResult.success(userLogic.login(loginDto, headersReader.getHttpHeaders(request)));
     }
     
-    class TokenDto{
+    public class TokenDto{
     public String token;
     }
     /**
