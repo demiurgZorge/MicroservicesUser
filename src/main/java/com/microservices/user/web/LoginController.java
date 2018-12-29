@@ -37,17 +37,21 @@ public class LoginController {
                                            @RequestBody(required = true) LoginDto loginDto) throws Exception {
         return ApiResult.success(userLogic.login(loginDto, headersReader.getHttpHeaders(request)));
     }
+    
+    class TokenDto{
+    public String token;
+    }
     /**
      * Запрос для авторизации
      * POST http://{{host}}/auth/security/loginWithToken
      * @param request
-     * @param loginModel
-     * @return RetValue<LoginResponseModel>
+     * @param tokenDto
+     * @return ApiSuccessResult<UserDto>
      */
     @RequestMapping(value="/loginWithToken", method=RequestMethod.POST, produces = "application/json")
     @ResponseBody
-    public ApiSuccessResult<UserDto> loginWithToken(HttpServletRequest request, @RequestBody String token) {        
-        return ApiResult.success(userLogic.loginWithToken(token, headersReader.getHttpHeaders(request)));
+    public ApiSuccessResult<UserDto> loginWithToken(HttpServletRequest request, @RequestBody TokenDto tokenDto) {        
+        return ApiResult.success(userLogic.loginWithToken(tokenDto.token, headersReader.getHttpHeaders(request)));
     }
     
     
