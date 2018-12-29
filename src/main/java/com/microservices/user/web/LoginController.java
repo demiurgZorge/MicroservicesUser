@@ -42,7 +42,7 @@ public class LoginController {
     
     public class TokenDto{
         public String token;
-        publib TokenDto(){}
+        public TokenDto(){}
     }
     /**
      * Запрос для авторизации
