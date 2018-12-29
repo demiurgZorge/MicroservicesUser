@@ -44,7 +44,7 @@ public class LoginController {
      * @param loginModel
      * @return RetValue<LoginResponseModel>
      */
-    @RequestMapping(value="/loginWithToken", method=RequestMethod.POST)
+    @RequestMapping(value="/loginWithToken", method=RequestMethod.POST, produces = "application/json")
     public ApiSuccessResult<UserDto> loginWithToken(HttpServletRequest request, @RequestBody String token) {        
         return ApiResult.success(userLogic.loginWithToken(token, headersReader.getHttpHeaders(request)));
     }
